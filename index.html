@@ -2,18 +2,15 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Martha & Efrén | Alma & Leandro - Invitación de Boda y Bautizo</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
     <style>
         /* ==========================================================================
-           CONFIGURACIÓN ESTILÍSTICA
+           CONFIGURACIÓN ESTILÍSTICA - SIN CAMBIOS
            ========================================================================== */
         * {
             box-sizing: border-box;
@@ -652,454 +649,522 @@
             justify-content: center;
             width: 100%;
         }
+        /* ===== FIN ESTILOS ORIGINALES ===== */
+
+        /* ===== NUEVOS ESTILOS PARA SLIDES Y NAVEGACIÓN (SIN AFECTAR EL RESTO) ===== */
+        .slides-wrapper {
+            width: 1280px;
+            max-width: 100%;
+            height: 720px;
+            max-height: 100vh;
+            position: relative;
+            overflow: hidden;
+            border: 12px double #c49a45;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+            background: #faf6ee;
+            border-radius: 4px;
+        }
+        .slides-track {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.15, 1);
+            will-change: transform;
+        }
+        .slide {
+            flex: 0 0 100%;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-width: none;
+            background: transparent;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .slide::-webkit-scrollbar { width: 0; background: transparent; }
+        /* reubicar .slide-container dentro de .slide */
+        .slide .slide-container {
+            width: 100%;
+            height: 100%;
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
+            background: transparent;
+            padding: 45px 65px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* para que los márgenes decorativos no se dupliquen */
+        .slide .slide-container::before,
+        .slide .slide-container::after {
+            display: none;
+        }
+        .slide .slide-container .corner-decor {
+            display: block;
+        }
+        /* navegación */
+        .nav-dots {
+            position: absolute;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 30;
+            background: rgba(0,0,0,0.2);
+            padding: 6px 16px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+        .nav-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,240,0.5);
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid rgba(196,154,69,0.4);
+        }
+        .nav-dots span.active {
+            background: #c49a45;
+            transform: scale(1.2);
+            border-color: #c49a45;
+        }
+        .nav-arrows {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 30;
+            background: rgba(250,246,238,0.6);
+            border: none;
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            font-size: 22px;
+            color: #5b8ab5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+        .nav-arrows:hover { background: #faf6ee; color: #c49a45; }
+        .nav-arrows.left { left: 12px; }
+        .nav-arrows.right { right: 12px; }
+
+        @media (max-width: 1300px) {
+            .slides-wrapper {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 1280 / 720;
+                max-height: 100vh;
+            }
+            .slide .slide-container {
+                padding: 30px 35px;
+            }
+        }
+        @media (max-width: 900px) {
+            .slide .slide-container { padding: 20px 25px; }
+            .nav-arrows { width: 36px; height: 36px; font-size: 18px; }
+            .nav-arrows.left { left: 6px; }
+            .nav-arrows.right { right: 6px; }
+            .nav-dots { gap: 8px; padding: 4px 12px; bottom: 10px; }
+            .nav-dots span { width: 10px; height: 10px; }
+        }
+        @media (max-width: 600px) {
+            .slide .slide-container { padding: 12px 12px; }
+            .nav-arrows { width: 30px; height: 30px; font-size: 14px; }
+            .nav-dots { gap: 6px; padding: 3px 10px; }
+            .nav-dots span { width: 8px; height: 8px; }
+        }
+        /* ocultar imágenes de margen que puedan solaparse (se mantienen en el código) */
+        .slide .slide-container img[style*="position:absolute"] {
+            display: block; /* las mantenemos visibles como en el original */
+        }
     </style>
 </head>
 <body>
 
-       <!-- ==========================================================================
-         DIAPOSITIVA 1: PORTADA - SIN MODIFICACIONES
-         ========================================================================== -->
-    <div class="slide-container" id="slide1">
-        <!-- Margen 1 en esquina superior derecha -->
-        <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:500px; opacity:.85; pointer-events:none; z-index:1;">
-        <!-- Margen 2 en esquina superior izquierda -->
-        <img src="Margen2.png" style="position:absolute; top:0; left:0; width:500px; opacity:.85; pointer-events:none; z-index:1;">
-        
-        <div class="corner-decor corner-top-left"></div>
-        <div class="corner-decor corner-top-right"></div>
-        <div class="corner-decor corner-bottom-left"></div>
-        <div class="corner-decor corner-bottom-right"></div>
+<div class="slides-wrapper" id="slidesWrapper">
+    <div class="slides-track" id="slidesTrack">
 
-        <div class="fade-up" style="margin-top: -40px;">
-            <div class="title-layout">
-                <div class="floral-spray" style="font-size: 20px;">
-                    <i class="fa-solid fa-feather-pointed"></i> ✦ La celebración de nuestro amor y el inicio de sus primeros pasos de fe. ✦ <i class="fa-solid fa-feather-pointed"></i>
-                </div>
-                
-                <p class="subtitle" style="font-size: 22px;">Nuestra Boda & Nuestro Bautizo</p>
-                
-                <h1 style="font-size: 48px;">Martha & Efrén <span style="font-family:'Cormorant Garamond'; font-style:italic; font-size:42px; color:#5b8ab5;">con</span> Alma & Leandro</h1>
-                
-                <p class="subtitle" style="font-size: 20px; letter-spacing: 2px; margin-top: 4px;">SÁBADO, 01 DE AGOSTO DE 2026</p>
-                
-                <div class="countdown-wrapper" id="countdown-clock">
-                    <div class="countdown-box">
-                        <div class="countdown-num" id="days" style="font-size: 52px;">00</div>
-                        <div class="countdown-lbl" style="font-size: 16px;">Días</div>
-                    </div>
-                    <div class="countdown-box">
-                        <div class="countdown-num" id="hours" style="font-size: 52px;">00</div>
-                        <div class="countdown-lbl" style="font-size: 16px;">Horas</div>
-                    </div>
-                    <div class="countdown-box">
-                        <div class="countdown-num" id="minutes" style="font-size: 52px;">00</div>
-                        <div class="countdown-lbl" style="font-size: 16px;">Minutos</div>
-                    </div>
-                    <div class="countdown-box">
-                        <div class="countdown-num" id="seconds" style="font-size: 52px;">00</div>
-                        <div class="countdown-lbl" style="font-size: 16px;">Segundos</div>
-                    </div>
-                </div>
-
-                <p style="margin-top: 20px; font-style: italic; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 20px;">
-                    "Nuestra unión de vida, el camino de nuestros hijos y la alegría de compartirlo con ustedes."
-                </p>
-            </div>
-        </div>
-    </div>
-
-       <!-- ==========================================================================
-         DIAPOSITIVA 2: INTRODUCCIÓN - RELOJ CON TAMAÑO NORMAL
-         ========================================================================== -->
-      <div class="slide-container" id="slide2">
-        <!-- Margen 1 en esquina inferior derecha -->
-        <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:400px; opacity:.85; pointer-events:none; z-index:1;">
-        <!-- Margen 2 en esquina superior izquierda -->
-        <img src="Margen2.png" style="position:absolute; top:0; left:0; width:400px; opacity:.85; pointer-events:none; z-index:1;">
-        
-        <!-- RELOJ TAMAÑO NORMAL -->
-        <div class="mini-clock" id="mini-clock-1">
-            <div class="mini-item">
-                <span class="mini-num" id="mini-days-1">00</span>
-                <span class="mini-lbl">Días</span>
-            </div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item">
-                <span class="mini-num" id="mini-hours-1">00</span>
-                <span class="mini-lbl">Horas</span>
-            </div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item">
-                <span class="mini-num" id="mini-minutes-1">00</span>
-                <span class="mini-lbl">Min</span>
-            </div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item">
-                <span class="mini-num" id="mini-seconds-1">00</span>
-                <span class="mini-lbl">Seg</span>
-            </div>
-        </div>
-
-        <div class="content-area" style="justify-content: flex-start; padding-top: 1px;">
-            <div style="text-align:center; margin-bottom: 10px;">
-                <hr style="background:#c49a45;border:none;height:20px;width:100px;margin:0 auto 10px;">
-                <h2 style="font-size:38px; line-height:1.8; margin-top: 0; font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif; font-style: italic; font-weight: 700; letter-spacing: 2px; color: #7B3F00;">
-                    Una doble fiesta de fe y unión<br>en la hermosa tierra de Cochahuayco
-                </h2>
-            </div>
-
-            <!-- Columnas más altas y menos anchas -->
-            <div class="two-column tiled" style="margin-top: -5px; max-width: 80%; gap: 40px;">
-            <div style="min-height: 250px; display: flex; flex-direction: column; justify-content: center; padding: 30px 35px;">
-                <h3 style="font-size: 28px;">Nuestra Boda</h3>
-                <p style="font-size: 18px;">
-                    <strong>Martha y Efrén</strong> se unirán en sagrado matrimonio, consagrando ante Dios una promesa nacida del amor.
-                </p>
-                <p style="font-size:16px; color:#5b8ab5; font-style:italic; margin-top:12px;">
-                    "Lo que la esencia une, ninguna voluntad ajena puede separar."
-                </p>
-            </div>
-
-            <div style="min-height: 350px; display: flex; flex-direction: column; justify-content: center; padding: 30px 35px;">
-                <h3 style="font-size: 28px;">Nuestro Santo Bautizo</h3>
-                <p style="font-size: 18px;">
-                    <strong>Alma y Leandro</strong> recibirán el primer sacramento cristiano, iniciando su camino de fe bajo la gracia de Dios.
-                </p>
-                <p style="font-size:16px; color:#5b8ab5; font-style:italic; margin-top:12px;">
-                    "La inocencia es el reflejo más puro de la gracia."
-                </p>
-            </div>
-        </div>
-        </div>
-    </div>
-
-    <!-- ==========================================================================
-         DIAPOSITIVA 3: SANTUARIO - RELOJ TAMAÑO NORMAL
-         ========================================================================== -->
-    <div class="slide-container" id="slide3">
-        <!-- Margen 1 en esquina superior derecha -->
-        <img src="Margen2.png" style="position:absolute; top:0; left:0; width:400px; opacity:.85; pointer-events:none; z-index:0;">
-        <!-- Margen 2 en esquina superior izquierda -->
-        <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
-        
-        <!-- RELOJ TAMAÑO NORMAL -->
-        <div class="mini-clock" id="mini-clock-2">
-            <div class="mini-item"><span class="mini-num" id="mini-days-2">00</span><span class="mini-lbl">Días</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-hours-2">00</span><span class="mini-lbl">Horas</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-minutes-2">00</span><span class="mini-lbl">Min</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-seconds-2">00</span><span class="mini-lbl">Seg</span></div>
-        </div>
-
-        
-        <h2 class="slide-title" style="font-size: 38px;">Donde Dios Bendice Nuestra Unión</h2>
-        <div class="content-area">
-            <!-- Separación central más ancha y márgenes más grandes -->
-            <div class="two-column equal-height" style="gap: 60px; padding: 0 60px;">
-                <div style="padding: 10px 15px;">
-                    <h3 style="font-size: 26px;">Santuario de la Virgen del Rocío</h3>
-                    <p style="font-size: 17px;">Nuestra ceremonia religiosa tomará lugar en esta joya neogótica labrada sobre el cerro Zhalao.</p>
-                    <p style="margin-top: 10px; font-size: 17px;"><strong>Fecha:</strong> Sábado, 01 de Agosto de 2026</p>
-                    <p style="font-size: 17px;"><strong>Hora:</strong> 14H00 (2:00 PM)</p>
-                    <p style="font-size: 17px;"><strong>Ubicación:</strong> Biblián, Cañar, Ecuador</p>
-                    
-                    <a href="https://maps.google.com/?q=Santuario+de+la+Virgen+del+Roc%C3%ADo+Biblian" target="_blank" class="btn-interactive" style="font-size: 16px;">
-                        <i class="fa-solid fa-map-location-dot"></i> Ubicación del Templo 
-                    </a>
-                </div>
-                <div style="padding: 10px 15px;">
-                    <div class="image-wrapper" style="height:300px;">
-                        <img src="./Santuario.jpg" alt="Santuario">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==========================================================================
-         DIAPOSITIVA 4: PADRINOS - RELOJ TAMAÑO NORMAL
-         ========================================================================== -->
-        <div class="slide-container" id="slide5">
-        <!-- Margen 1 en esquina superior derecha -->
-        <img src="Margen2.png" style="position:absolute; top:0; left:0; width:400px; opacity:.85; pointer-events:none; z-index:0;">
-        <!-- Margen 2 en esquina superior izquierda -->
-        <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:400px; opacity:.85; pointer-events:none; z-index:0;">
-        
-        <!-- RELOJ TAMAÑO NORMAL -->
-        <div class="mini-clock" id="mini-clock-3">
-            <div class="mini-item"><span class="mini-num" id="mini-days-3">00</span><span class="mini-lbl">Días</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-hours-3">00</span><span class="mini-lbl">Horas</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-minutes-3">00</span><span class="mini-lbl">Min</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-seconds-3">00</span><span class="mini-lbl">Seg</span></div>
-        </div>
-
-        <div class="gold-ornament">
-            ✦ ✦ ✦
-        </div>
-        
-        <h2 class="slide-title" style="font-size: 38px;">Guardianes de Nuestros Pasos</h2>
-        <p style="text-align:center; font-style:italic; font-size:24px; color:#5b8ab5; margin-bottom:18px; max-width:650px;">
-            Las almas elegidas para guiarnos con amor, fe y sabiduría en esta historia que hoy escribimos juntos.
-        </p>
-
-        <div class="content-area" style="width: 100%; padding: 0 80px;">
-            <div class="table-layout" style="width: 100%;">
-                <table style="width: 100%;">
-                    <thead>
-                        <tr>
-                            <th style="padding: 15px 25px; font-size: 18px;">Celebración</th>
-                            <th style="padding: 15px 25px; font-size: 18px;">Quienes dan sentido a nuestra celebración</th>
-                            <th style="padding: 15px 25px; font-size: 18px;">Padrinos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td style="padding: 15px 25px; font-size: 17px;"><strong>💍 Matrimonio</strong></td>
-                            <td style="padding: 15px 25px; font-size: 17px;">Martha & Efrén</td>
-                            <td style="padding: 15px 25px; font-size: 17px;">Sr. Heriberto Lema & Sra. Mercedes Muenala</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 15px 25px; font-size: 17px;"><strong>🕊️ Bautizo</strong></td>
-                            <td style="padding: 15px 25px; font-size: 17px;">Leandro Gabriel Lema Lazo</td>
-                            <td style="padding: 15px 25px; font-size: 17px;">Srta. Tannya Lazo</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 15px 25px; font-size: 17px;"><strong>👼 Bautizo</strong></td>
-                            <td style="padding: 15px 25px; font-size: 17px;">Alma Salome Lema Lazo</td>
-                            <td style="padding: 15px 25px; font-size: 17px;">Sr. Julio Guamán & Sra. Luz Lema</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-             <p style="margin-top:18px; text-align:center; font-size:13px; color:#c49a45; letter-spacing:2px; text-transform:uppercase; font-weight:600;">
-                ✦ Su presencia será una bendición y su ejemplo una guía para nuestras vidas. ✦
-            </p>
-        </div>
-    </div>
-    <!-- ==========================================================================
-         DIAPOSITIVA 5: PADRES DE LOS NOVIOS - RELOJ TAMAÑO NORMAL
-         ========================================================================== -->
-   <div class="slide-container" id="slide9">
-        <!-- Margen 1 en esquina superior derecha -->
-        <img src="Margen2.png" style="position:absolute; top:0; left:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
-        <!-- Margen 2 en esquina superior izquierda -->
-        <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
-
-        <!-- RELOJ TAMAÑO NORMAL -->
-        <div class="mini-clock" id="mini-clock-6">
-            <div class="mini-item"><span class="mini-num" id="mini-days-6">00</span><span class="mini-lbl">Días</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-hours-6">00</span><span class="mini-lbl">Horas</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-minutes-6">00</span><span class="mini-lbl">Min</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-seconds-6">00</span><span class="mini-lbl">Seg</span></div>
-        </div>
-
-        
-        <h2 class="slide-title" style="font-size: 38px;">Nuestros Padres · "Novios"</h2>
-        <p style="text-align:center; font-style:italic; font-size: 24px; color:#5b8ab5; margin-bottom:22px; max-width:650px;">
-            De ellos heredamos la fe, el ejemplo y la fortaleza para construir nuestro propio camino.
-        </p>
-
-        <div class="content-area">
-                <div class="two-column equal-height" style="gap: 60px; padding: 0 40px;">  
-                <div class="parents-card">
-                    <div class="icon">
-                        <i class="fa-solid fa-venus" style="color: #c49a45; font-size: 28px;"></i>
-                        <i class="fa-solid fa-mars" style="color: #5b8ab5; font-size: 28px; margin-left: 8px;"></i>
-                    </div>
-                    <h3 style="font-size: 26px;">Padres de la Novia</h3>
-                    <p class="name" style="font-size: 26px;">Sr. Manuel Rigoberto Lazo</p>
-                    <p class="ampersand" style="font-size: 24px;">&amp;</p>
-                    <p class="name" style="font-size: 26px;">Sra. Luzmila Palaguachi</p>
-                    <p class="quote" style="font-size: 18px;">"Su amor nos enseñó que la familia es el más hermoso de los regalos."</p>
-                </div>
-
-                <div class="parents-card">
-                    <div class="icon">
-                        <i class="fa-solid fa-mars" style="color: #5b8ab5; font-size: 28px;"></i>
-                        <i class="fa-solid fa-venus" style="color: #c49a45; font-size: 28px; margin-left: 8px;"></i>
-                    </div>
-                    <h3 style="font-size: 26px;">Padres del Novio</h3>
-                    <p class="name" style="font-size: 26px;">Sr. Manuel Prudencio Lema</p>
-                    <p class="ampersand" style="font-size: 24px;">&amp;</p>
-                    <p class="name" style="font-size: 26px;">Sra. María Etelvina Condo</p>
-                    <p class="quote" style="font-size: 18px;">"Su sabiduría y ejemplo son la guía que ilumina nuestro camino."</p>
-                </div>
-
-            </div>
-
-            <p style="margin-top:18px; text-align:center; font-size: 15px; color:#c49a45; letter-spacing:2px; text-transform:uppercase; font-weight:600;">
-                ✦ Honramos su legado de amor ✦
-            </p>
-        </div>
-    </div>
-
-    <!-- ==========================================================================
-         DIAPOSITIVA 7: FIESTA - RELOJ TAMAÑO NORMAL
-         ========================================================================== -->
-   <div class="slide-container" id="slide7">
-        
-        <!-- Margen 1 en esquina superior derecha -->
-        <img src="Margen2.png" style="position:absolute; top:0; left:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
-        <!-- Margen 2 en esquina superior izquierda -->
-        <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
-
-        <!-- RELOJ TAMAÑO NORMAL -->
-        <div class="mini-clock" id="mini-clock-4">
-            <div class="mini-item"><span class="mini-num" id="mini-days-4">00</span><span class="mini-lbl">Días</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-hours-4">00</span><span class="mini-lbl">Horas</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-minutes-4">00</span><span class="mini-lbl">Min</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-seconds-4">00</span><span class="mini-lbl">Seg</span></div>
-        </div>
-
-         <h2 class="slide-title" style="font-size: 38px;">La Alegría de Compartir</h2>
-        
-        <div class="content-area">
-            <div class="two-column equal-height" style="gap: 60px; padding: 0 40px;"> 
-                <div>
-                    <h3 style="font-size: 26px;">Recepción en Barrio San Juan</h3>
-                    <p style="font-size: 17px;">Tras la bendición en el santuario, nos trasladaremos a celebrar el reencuentro de nuestras familias.</p>
-                    <p style="margin-top:10px; font-size: 17px;"><strong>Lugar:</strong> Cochahuayco - Barrio San Juan.</p>
-                    <p style="font-size: 17px;"><strong>Hora:</strong> 19H00 (7:00 PM).</p>
-                    
-                    <a href="https://maps.app.goo.gl/sPZatKA9wdz5Gga48" target="_blank" class="btn-interactive gold" style="font-size: 16px;">
-                        <i class="fa-solid fa-car"></i> Cómo Llegar a la Recepción
-                    </a>
-                </div>
-                <div>
-                    <div class="image-wrapper" style="height:300px;">
-                        <img src="./Anillo.jpg" alt="Anillos">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ==========================================================================
-         DIAPOSITIVA 8: PROGRAMA - RELOJ TAMAÑO NORMAL
-         ========================================================================== -->
-        <div class="slide-container" id="slide8">
-        <!-- Margen 1 en esquina superior derecha -->
-        <img src="Margen2.png" style="position:absolute; top:0; left:0; width:500px; opacity:.85; pointer-events:none; z-index:0;">
-        <!-- Margen 2 en esquina superior izquierda -->
-        <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
-
-        <!-- RELOJ TAMAÑO NORMAL -->
-        <div class="mini-clock" id="mini-clock-5">
-            <div class="mini-item"><span class="mini-num" id="mini-days-5">00</span><span class="mini-lbl">Días</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-hours-5">00</span><span class="mini-lbl">Horas</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-minutes-5">00</span><span class="mini-lbl">Min</span></div>
-            <span class="mini-sep">:</span>
-            <div class="mini-item"><span class="mini-num" id="mini-seconds-5">00</span><span class="mini-lbl">Seg</span></div>
-        </div>
-
-        <div class="gold-ornament">
-            ✦ ✦ ✦
-        </div>
-        
-        <h2 class="slide-title">Sábado 01 de Agosto·</h2>
-        <div class="content-area">
-            <div class="two-column equal-height" style="gap: 60px; padding: 0 60px; width: 100%;"> 
-                <div class="highlight-numbers-layout">
-                    <div class="number">01</div>
-                    <div class="number-label">Agosto · 2026</div>
-                    <p style="margin-top:12px; font-size:1.2rem;">Boda y Bautizo en un solo día.<br>Un pacto sagrado,<br>una gracia divina.</p>
-                </div>
-                <div>
-                    <h3 style="font-size: 24px; margin-bottom: 15px;">El Programa del Día</h3>
-                    <div class="timeline-compact">
-                        <div class="timeline-item-compact" style="padding: 10px 0;">
-                            <span class="time" style="font-size: 1.2rem; min-width: 80px;">14H00</span>
-                            <span class="event" style="font-size: 1.1rem;">Ceremonia religiosa</span>
+        <!-- ===== SLIDE 1: PORTADA (original sin cambios) ===== -->
+        <div class="slide" data-index="0">
+            <div class="slide-container" id="slide1">
+                <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:500px; opacity:.85; pointer-events:none; z-index:1;">
+                <img src="Margen2.png" style="position:absolute; top:0; left:0; width:500px; opacity:.85; pointer-events:none; z-index:1;">
+                <div class="corner-decor corner-top-left"></div>
+                <div class="corner-decor corner-top-right"></div>
+                <div class="corner-decor corner-bottom-left"></div>
+                <div class="corner-decor corner-bottom-right"></div>
+                <div class="fade-up" style="margin-top: -40px;">
+                    <div class="title-layout">
+                        <div class="floral-spray" style="font-size: 20px;">
+                            <i class="fa-solid fa-feather-pointed"></i> ✦ La celebración de nuestro amor y el inicio de sus primeros pasos de fe. ✦ <i class="fa-solid fa-feather-pointed"></i>
                         </div>
-                        <div class="timeline-item-compact" style="padding: 10px 0;">
-                            <span class="time" style="font-size: 1.2rem; min-width: 80px;">15H30</span>
-                            <span class="event" style="font-size: 1.1rem;">Fotos en los Miradores</span>
+                        <p class="subtitle" style="font-size: 22px;">Nuestra Boda & Nuestro Bautizo</p>
+                        <h1 style="font-size: 48px;">Martha & Efrén <span style="font-family:'Cormorant Garamond'; font-style:italic; font-size:42px; color:#5b8ab5;">con</span> Alma & Leandro</h1>
+                        <p class="subtitle" style="font-size: 20px; letter-spacing: 2px; margin-top: 4px;">SÁBADO, 01 DE AGOSTO DE 2026</p>
+                        <div class="countdown-wrapper" id="countdown-clock">
+                            <div class="countdown-box"><div class="countdown-num" id="days" style="font-size: 52px;">00</div><div class="countdown-lbl" style="font-size: 16px;">Días</div></div>
+                            <div class="countdown-box"><div class="countdown-num" id="hours" style="font-size: 52px;">00</div><div class="countdown-lbl" style="font-size: 16px;">Horas</div></div>
+                            <div class="countdown-box"><div class="countdown-num" id="minutes" style="font-size: 52px;">00</div><div class="countdown-lbl" style="font-size: 16px;">Minutos</div></div>
+                            <div class="countdown-box"><div class="countdown-num" id="seconds" style="font-size: 52px;">00</div><div class="countdown-lbl" style="font-size: 16px;">Segundos</div></div>
                         </div>
-                        <div class="timeline-item-compact" style="padding: 10px 0;">
-                            <span class="time" style="font-size: 1.2rem; min-width: 80px;">19H00</span>
-                            <span class="event" style="font-size: 1.1rem;">Recepción en Barrio San Juan</span>
+                        <p style="margin-top: 20px; font-style: italic; max-width: 600px; margin-left: auto; margin-right: auto; font-size: 20px;">"Nuestra unión de vida, el camino de nuestros hijos y la alegría de compartirlo con ustedes."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SLIDE 2: INTRODUCCIÓN ===== -->
+        <div class="slide" data-index="1">
+            <div class="slide-container" id="slide2">
+                <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:400px; opacity:.85; pointer-events:none; z-index:1;">
+                <img src="Margen2.png" style="position:absolute; top:0; left:0; width:400px; opacity:.85; pointer-events:none; z-index:1;">
+                <div class="mini-clock" id="mini-clock-1">
+                    <div class="mini-item"><span class="mini-num" id="mini-days-1">00</span><span class="mini-lbl">Días</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-hours-1">00</span><span class="mini-lbl">Horas</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-minutes-1">00</span><span class="mini-lbl">Min</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-seconds-1">00</span><span class="mini-lbl">Seg</span></div>
+                </div>
+                <div class="content-area" style="justify-content: flex-start; padding-top: 1px;">
+                    <div style="text-align:center; margin-bottom: 10px;">
+                        <hr style="background:#c49a45;border:none;height:20px;width:100px;margin:0 auto 10px;">
+                        <h2 style="font-size:38px; line-height:1.8; margin-top: 0; font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif; font-style: italic; font-weight: 700; letter-spacing: 2px; color: #7B3F00;">Una doble fiesta de fe y unión<br>en la hermosa tierra de Cochahuayco</h2>
+                    </div>
+                    <div class="two-column tiled" style="margin-top: -5px; max-width: 80%; gap: 40px;">
+                        <div style="min-height: 250px; display: flex; flex-direction: column; justify-content: center; padding: 30px 35px;">
+                            <h3 style="font-size: 28px;">Nuestra Boda</h3>
+                            <p style="font-size: 18px;"><strong>Martha y Efrén</strong> se unirán en sagrado matrimonio, consagrando ante Dios una promesa nacida del amor.</p>
+                            <p style="font-size:16px; color:#5b8ab5; font-style:italic; margin-top:12px;">"Lo que la esencia une, ninguna voluntad ajena puede separar."</p>
                         </div>
-                        <div class="timeline-item-compact" style="padding: 10px 0;">
-                            <span class="time" style="font-size: 1.2rem; min-width: 80px;">21H00</span>
-                            <span class="event" style="font-size: 1.1rem;">Brindis de unión y apertura de la celebración</span>
+                        <div style="min-height: 350px; display: flex; flex-direction: column; justify-content: center; padding: 30px 35px;">
+                            <h3 style="font-size: 28px;">Nuestro Santo Bautizo</h3>
+                            <p style="font-size: 18px;"><strong>Alma y Leandro</strong> recibirán el primer sacramento cristiano, iniciando su camino de fe bajo la gracia de Dios.</p>
+                            <p style="font-size:16px; color:#5b8ab5; font-style:italic; margin-top:12px;">"La inocencia es el reflejo más puro de la gracia."</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Te esperamos centrado horizontalmente -->
-            <p style="margin-top: 20px; text-align: center; font-size: 24px; color: #c49a45; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; width: 100%; font-family: 'Playfair Display', serif; font-style: italic;">
-                ✦ Te esperamos ✦
-            </p>
         </div>
-    </div>
 
-    <!-- ==========================================================================
-         JAVASCRIPT
-         ========================================================================== -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const eventDate = new Date("August 1, 2026 14:00:00").getTime();
+        <!-- ===== SLIDE 3: SANTUARIO ===== -->
+        <div class="slide" data-index="2">
+            <div class="slide-container" id="slide3">
+                <img src="Margen2.png" style="position:absolute; top:0; left:0; width:400px; opacity:.85; pointer-events:none; z-index:0;">
+                <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
+                <div class="mini-clock" id="mini-clock-2">
+                    <div class="mini-item"><span class="mini-num" id="mini-days-2">00</span><span class="mini-lbl">Días</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-hours-2">00</span><span class="mini-lbl">Horas</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-minutes-2">00</span><span class="mini-lbl">Min</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-seconds-2">00</span><span class="mini-lbl">Seg</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size: 38px;">Donde Dios Bendice Nuestra Unión</h2>
+                <div class="content-area">
+                    <div class="two-column equal-height" style="gap: 60px; padding: 0 60px;">
+                        <div style="padding: 10px 15px;">
+                            <h3 style="font-size: 26px;">Santuario de la Virgen del Rocío</h3>
+                            <p style="font-size: 17px;">Nuestra ceremonia religiosa tomará lugar en esta joya neogótica labrada sobre el cerro Zhalao.</p>
+                            <p style="margin-top: 10px; font-size: 17px;"><strong>Fecha:</strong> Sábado, 01 de Agosto de 2026</p>
+                            <p style="font-size: 17px;"><strong>Hora:</strong> 14H00 (2:00 PM)</p>
+                            <p style="font-size: 17px;"><strong>Ubicación:</strong> Biblián, Cañar, Ecuador</p>
+                            <a href="https://maps.google.com/?q=Santuario+de+la+Virgen+del+Roc%C3%ADo+Biblian" target="_blank" class="btn-interactive" style="font-size: 16px;"><i class="fa-solid fa-map-location-dot"></i> Ubicación del Templo</a>
+                        </div>
+                        <div style="padding: 10px 15px;">
+                            <div class="image-wrapper" style="height:300px;">
+                                <img src="./Santuario.jpg" alt="Santuario">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            function updateAllClocks() {
-                const now = new Date().getTime();
-                const difference = eventDate - now;
+        <!-- ===== SLIDE 4: PADRINOS ===== -->
+        <div class="slide" data-index="3">
+            <div class="slide-container" id="slide5">
+                <img src="Margen2.png" style="position:absolute; top:0; left:0; width:400px; opacity:.85; pointer-events:none; z-index:0;">
+                <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:400px; opacity:.85; pointer-events:none; z-index:0;">
+                <div class="mini-clock" id="mini-clock-3">
+                    <div class="mini-item"><span class="mini-num" id="mini-days-3">00</span><span class="mini-lbl">Días</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-hours-3">00</span><span class="mini-lbl">Horas</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-minutes-3">00</span><span class="mini-lbl">Min</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-seconds-3">00</span><span class="mini-lbl">Seg</span></div>
+                </div>
+                <div class="gold-ornament">✦ ✦ ✦</div>
+                <h2 class="slide-title" style="font-size: 38px;">Guardianes de Nuestros Pasos</h2>
+                <p style="text-align:center; font-style:italic; font-size:24px; color:#5b8ab5; margin-bottom:18px; max-width:650px;">Las almas elegidas para guiarnos con amor, fe y sabiduría en esta historia que hoy escribimos juntos.</p>
+                <div class="content-area" style="width: 100%; padding: 0 80px;">
+                    <div class="table-layout" style="width: 100%;">
+                        <table style="width: 100%;">
+                            <thead><tr><th style="padding: 15px 25px; font-size: 18px;">Celebración</th><th style="padding: 15px 25px; font-size: 18px;">Quienes dan sentido a nuestra celebración</th><th style="padding: 15px 25px; font-size: 18px;">Padrinos</th></tr></thead>
+                            <tbody>
+                                <tr><td style="padding: 15px 25px; font-size: 17px;"><strong>💍 Matrimonio</strong></td><td style="padding: 15px 25px; font-size: 17px;">Martha & Efrén</td><td style="padding: 15px 25px; font-size: 17px;">Sr. Heriberto Lema & Sra. Mercedes Muenala</td></tr>
+                                <tr><td style="padding: 15px 25px; font-size: 17px;"><strong>🕊️ Bautizo</strong></td><td style="padding: 15px 25px; font-size: 17px;">Leandro Gabriel Lema Lazo</td><td style="padding: 15px 25px; font-size: 17px;">Srta. Tannya Lazo</td></tr>
+                                <tr><td style="padding: 15px 25px; font-size: 17px;"><strong>👼 Bautizo</strong></td><td style="padding: 15px 25px; font-size: 17px;">Alma Salome Lema Lazo</td><td style="padding: 15px 25px; font-size: 17px;">Sr. Julio Guamán & Sra. Luz Lema</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p style="margin-top:18px; text-align:center; font-size:13px; color:#c49a45; letter-spacing:2px; text-transform:uppercase; font-weight:600;">✦ Su presencia será una bendición y su ejemplo una guía para nuestras vidas. ✦</p>
+                </div>
+            </div>
+        </div>
 
-                if (difference < 0) {
-                    document.getElementById("countdown-clock").innerHTML = 
-                        "<div class='subtitle' style='color:#5b8ab5; font-size:22px; font-weight:600;'>¡Llegó el gran día! ❤️</div>";
-                    document.querySelectorAll('.mini-clock').forEach(el => {
-                        el.style.display = 'none';
-                    });
-                    return;
-                }
+        <!-- ===== SLIDE 5: PADRES DE LOS NOVIOS ===== -->
+        <div class="slide" data-index="4">
+            <div class="slide-container" id="slide9">
+                <img src="Margen2.png" style="position:absolute; top:0; left:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
+                <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
+                <div class="mini-clock" id="mini-clock-6">
+                    <div class="mini-item"><span class="mini-num" id="mini-days-6">00</span><span class="mini-lbl">Días</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-hours-6">00</span><span class="mini-lbl">Horas</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-minutes-6">00</span><span class="mini-lbl">Min</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-seconds-6">00</span><span class="mini-lbl">Seg</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size: 38px;">Nuestros Padres · "Novios"</h2>
+                <p style="text-align:center; font-style:italic; font-size: 24px; color:#5b8ab5; margin-bottom:22px; max-width:650px;">De ellos heredamos la fe, el ejemplo y la fortaleza para construir nuestro propio camino.</p>
+                <div class="content-area">
+                    <div class="two-column equal-height" style="gap: 60px; padding: 0 40px;">
+                        <div class="parents-card">
+                            <div class="icon"><i class="fa-solid fa-venus" style="color: #c49a45; font-size: 28px;"></i><i class="fa-solid fa-mars" style="color: #5b8ab5; font-size: 28px; margin-left: 8px;"></i></div>
+                            <h3 style="font-size: 26px;">Padres de la Novia</h3>
+                            <p class="name" style="font-size: 26px;">Sr. Manuel Rigoberto Lazo</p>
+                            <p class="ampersand" style="font-size: 24px;">&amp;</p>
+                            <p class="name" style="font-size: 26px;">Sra. Luzmila Palaguachi</p>
+                            <p class="quote" style="font-size: 18px;">"Su amor nos enseñó que la familia es el más hermoso de los regalos."</p>
+                        </div>
+                        <div class="parents-card">
+                            <div class="icon"><i class="fa-solid fa-mars" style="color: #5b8ab5; font-size: 28px;"></i><i class="fa-solid fa-venus" style="color: #c49a45; font-size: 28px; margin-left: 8px;"></i></div>
+                            <h3 style="font-size: 26px;">Padres del Novio</h3>
+                            <p class="name" style="font-size: 26px;">Sr. Manuel Prudencio Lema</p>
+                            <p class="ampersand" style="font-size: 24px;">&amp;</p>
+                            <p class="name" style="font-size: 26px;">Sra. María Etelvina Condo</p>
+                            <p class="quote" style="font-size: 18px;">"Su sabiduría y ejemplo son la guía que ilumina nuestro camino."</p>
+                        </div>
+                    </div>
+                    <p style="margin-top:18px; text-align:center; font-size: 15px; color:#c49a45; letter-spacing:2px; text-transform:uppercase; font-weight:600;">✦ Honramos su legado de amor ✦</p>
+                </div>
+            </div>
+        </div>
 
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        <!-- ===== SLIDE 6: FIESTA ===== -->
+        <div class="slide" data-index="5">
+            <div class="slide-container" id="slide7">
+                <img src="Margen2.png" style="position:absolute; top:0; left:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
+                <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
+                <div class="mini-clock" id="mini-clock-4">
+                    <div class="mini-item"><span class="mini-num" id="mini-days-4">00</span><span class="mini-lbl">Días</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-hours-4">00</span><span class="mini-lbl">Horas</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-minutes-4">00</span><span class="mini-lbl">Min</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-seconds-4">00</span><span class="mini-lbl">Seg</span></div>
+                </div>
+                <h2 class="slide-title" style="font-size: 38px;">La Alegría de Compartir</h2>
+                <div class="content-area">
+                    <div class="two-column equal-height" style="gap: 60px; padding: 0 40px;">
+                        <div>
+                            <h3 style="font-size: 26px;">Recepción en Barrio San Juan</h3>
+                            <p style="font-size: 17px;">Tras la bendición en el santuario, nos trasladaremos a celebrar el reencuentro de nuestras familias.</p>
+                            <p style="margin-top:10px; font-size: 17px;"><strong>Lugar:</strong> Cochahuayco - Barrio San Juan.</p>
+                            <p style="font-size: 17px;"><strong>Hora:</strong> 19H00 (7:00 PM).</p>
+                            <a href="https://maps.app.goo.gl/sPZatKA9wdz5Gga48" target="_blank" class="btn-interactive gold" style="font-size: 16px;"><i class="fa-solid fa-car"></i> Cómo Llegar a la Recepción</a>
+                        </div>
+                        <div>
+                            <div class="image-wrapper" style="height:300px;">
+                                <img src="./Anillo.jpg" alt="Anillos">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                const d = String(days).padStart(2, '0');
-                const h = String(hours).padStart(2, '0');
-                const m = String(minutes).padStart(2, '0');
-                const s = String(seconds).padStart(2, '0');
+        <!-- ===== SLIDE 7: PROGRAMA ===== -->
+        <div class="slide" data-index="6">
+            <div class="slide-container" id="slide8">
+                <img src="Margen2.png" style="position:absolute; top:0; left:0; width:500px; opacity:.85; pointer-events:none; z-index:0;">
+                <img src="Margen1.png" style="position:absolute; bottom:0; right:0; width:300px; opacity:.85; pointer-events:none; z-index:0;">
+                <div class="mini-clock" id="mini-clock-5">
+                    <div class="mini-item"><span class="mini-num" id="mini-days-5">00</span><span class="mini-lbl">Días</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-hours-5">00</span><span class="mini-lbl">Horas</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-minutes-5">00</span><span class="mini-lbl">Min</span></div>
+                    <span class="mini-sep">:</span>
+                    <div class="mini-item"><span class="mini-num" id="mini-seconds-5">00</span><span class="mini-lbl">Seg</span></div>
+                </div>
+                <div class="gold-ornament">✦ ✦ ✦</div>
+                <h2 class="slide-title">Sábado 01 de Agosto·</h2>
+                <div class="content-area">
+                    <div class="two-column equal-height" style="gap: 60px; padding: 0 60px; width: 100%;">
+                        <div class="highlight-numbers-layout">
+                            <div class="number">01</div>
+                            <div class="number-label">Agosto · 2026</div>
+                            <p style="margin-top:12px; font-size:1.2rem;">Boda y Bautizo en un solo día.<br>Un pacto sagrado,<br>una gracia divina.</p>
+                        </div>
+                        <div>
+                            <h3 style="font-size: 24px; margin-bottom: 15px;">El Programa del Día</h3>
+                            <div class="timeline-compact">
+                                <div class="timeline-item-compact" style="padding: 10px 0;"><span class="time" style="font-size: 1.2rem; min-width: 80px;">14H00</span><span class="event" style="font-size: 1.1rem;">Ceremonia religiosa</span></div>
+                                <div class="timeline-item-compact" style="padding: 10px 0;"><span class="time" style="font-size: 1.2rem; min-width: 80px;">15H30</span><span class="event" style="font-size: 1.1rem;">Fotos en los Miradores</span></div>
+                                <div class="timeline-item-compact" style="padding: 10px 0;"><span class="time" style="font-size: 1.2rem; min-width: 80px;">19H00</span><span class="event" style="font-size: 1.1rem;">Recepción en Barrio San Juan</span></div>
+                                <div class="timeline-item-compact" style="padding: 10px 0;"><span class="time" style="font-size: 1.2rem; min-width: 80px;">21H00</span><span class="event" style="font-size: 1.1rem;">Brindis de unión y apertura de la celebración</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="margin-top: 20px; text-align: center; font-size: 24px; color: #c49a45; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; width: 100%; font-family: 'Playfair Display', serif; font-style: italic;">✦ Te esperamos ✦</p>
+                </div>
+            </div>
+        </div>
 
-                // Reloj grande
-                document.getElementById("days").innerText = d;
-                document.getElementById("hours").innerText = h;
-                document.getElementById("minutes").innerText = m;
-                document.getElementById("seconds").innerText = s;
+    </div> <!-- end slides-track -->
 
-                // Mini-relojes (ahora incluye el #6)
-                for (let i = 1; i <= 6; i++) {
-                    const dayEl = document.getElementById('mini-days-' + i);
-                    const hourEl = document.getElementById('mini-hours-' + i);
-                    const minEl = document.getElementById('mini-minutes-' + i);
-                    const secEl = document.getElementById('mini-seconds-' + i);
-                    if (dayEl) dayEl.innerText = d;
-                    if (hourEl) hourEl.innerText = h;
-                    if (minEl) minEl.innerText = m;
-                    if (secEl) secEl.innerText = s;
-                }
+    <!-- Navegación -->
+    <div class="nav-dots" id="navDots"></div>
+    <button class="nav-arrows left" id="prevSlide"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="nav-arrows right" id="nextSlide"><i class="fa-solid fa-chevron-right"></i></button>
+</div> <!-- end slides-wrapper -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // ===== RELOJES (sin cambios) =====
+        const eventDate = new Date("August 1, 2026 14:00:00").getTime();
+
+        function updateAllClocks() {
+            const now = new Date().getTime();
+            const difference = eventDate - now;
+
+            if (difference < 0) {
+                document.getElementById("countdown-clock").innerHTML = 
+                    "<div class='subtitle' style='color:#5b8ab5; font-size:22px; font-weight:600;'>¡Llegó el gran día! ❤️</div>";
+                document.querySelectorAll('.mini-clock').forEach(el => {
+                    el.style.display = 'none';
+                });
+                return;
             }
 
-            updateAllClocks();
-            setInterval(updateAllClocks, 1000);
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            const d = String(days).padStart(2, '0');
+            const h = String(hours).padStart(2, '0');
+            const m = String(minutes).padStart(2, '0');
+            const s = String(seconds).padStart(2, '0');
+
+            document.getElementById("days").innerText = d;
+            document.getElementById("hours").innerText = h;
+            document.getElementById("minutes").innerText = m;
+            document.getElementById("seconds").innerText = s;
+
+            for (let i = 1; i <= 6; i++) {
+                const dayEl = document.getElementById('mini-days-' + i);
+                const hourEl = document.getElementById('mini-hours-' + i);
+                const minEl = document.getElementById('mini-minutes-' + i);
+                const secEl = document.getElementById('mini-seconds-' + i);
+                if (dayEl) dayEl.innerText = d;
+                if (hourEl) hourEl.innerText = h;
+                if (minEl) minEl.innerText = m;
+                if (secEl) secEl.innerText = s;
+            }
+        }
+
+        updateAllClocks();
+        setInterval(updateAllClocks, 1000);
+
+        // ===== NAVEGACIÓN POR SLIDES =====
+        const track = document.getElementById('slidesTrack');
+        const slides = track.querySelectorAll('.slide');
+        const total = slides.length;
+        let current = 0;
+        let isAnimating = false;
+        const dotsContainer = document.getElementById('navDots');
+
+        // crear dots
+        for (let i = 0; i < total; i++) {
+            const dot = document.createElement('span');
+            dot.dataset.index = i;
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', function(e) {
+                e.stopPropagation();
+                goTo(parseInt(this.dataset.index));
+            });
+            dotsContainer.appendChild(dot);
+        }
+
+        function goTo(index) {
+            if (isAnimating || index === current || index < 0 || index >= total) return;
+            isAnimating = true;
+            current = index;
+            track.style.transform = `translateX(-${current * 100}%)`;
+            updateDots();
+            setTimeout(() => { isAnimating = false; }, 500);
+        }
+
+        function updateDots() {
+            document.querySelectorAll('.nav-dots span').forEach((dot, i) => {
+                dot.classList.toggle('active', i === current);
+            });
+        }
+
+        function next() { if (current < total - 1) goTo(current + 1); }
+        function prev() { if (current > 0) goTo(current - 1); }
+
+        document.getElementById('nextSlide').addEventListener('click', function(e) { e.stopPropagation(); next(); });
+        document.getElementById('prevSlide').addEventListener('click', function(e) { e.stopPropagation(); prev(); });
+
+        // clic en el wrapper (no en botones ni dots) -> avanzar
+        const wrapper = document.getElementById('slidesWrapper');
+        wrapper.addEventListener('click', function(e) {
+            const target = e.target;
+            if (target.closest('.nav-arrows') || target.closest('.nav-dots')) return;
+            next();
         });
-    </script>
+
+        // teclado
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+        });
+
+        // swipe táctil
+        let touchStartX = 0;
+        let touchEndX = 0;
+        wrapper.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        wrapper.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 40) {
+                if (diff > 0) next();
+                else prev();
+            }
+        }, { passive: true });
+    });
+</script>
 
 </body>
 </html>
