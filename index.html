@@ -48,21 +48,30 @@
             }
         }
 
-        /* Celulares en VERTICAL: el diseño original es horizontal (1361x768).
-           En vez de mostrar una tira diminuta en medio de la pantalla, se rota
-           la tarjeta 90° para que ocupe toda la pantalla del celular. */
+        /* Celulares en VERTICAL: el diseño es horizontal (1361x768).
+           En vez de rotar la tarjeta, se oculta el contenido y se pide
+           al usuario que gire el celular a horizontal. */
         @media (max-width: 820px) and (orientation: portrait) {
-            .slides-wrapper {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                width: 100dvh;
-                max-width: 100dvh;
-                height: 100vw;
-                max-height: 100vw;
-                transform: translate(-50%, -50%) rotate(90deg);
-                transform-origin: center center;
-            }
+            .slides-wrapper { display: none; }
+            .rotate-message { display: flex; }
+        }
+
+        .rotate-message {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            text-align: center;
+            padding: 24px;
+            color: #faf6ee;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .rotate-message i { font-size: 48px; color: #c49a45; animation: rotateHint 1.8s ease-in-out infinite; }
+        .rotate-message p { font-size: 16px; max-width: 280px; line-height: 1.4; }
+        @keyframes rotateHint {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(90deg); }
         }
 
         .slides-track {
@@ -110,7 +119,7 @@
         /* Reloj Grande (Portada) - Posición subida para computadoras */
         .countdown-wrapper {
             position: absolute;
-            top: 50%; 
+            top: 60%; 
             left: 50%;
             transform: translate(-50%, -50%);
             display: flex;
@@ -162,9 +171,9 @@
         }
 
         .mini-clock .mini-item { text-align: center; }
-        .mini-clock .mini-num { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; color: #5b8ab5; line-height: 1; letter-spacing: 1px; }
-        .mini-clock .mini-lbl { font-family: 'Montserrat', sans-serif; font-size: 13px; text-transform: uppercase; color: #111a24; font-weight: 600; display: block; }
-        .mini-clock .mini-sep { color: #c49a45; font-size: 2px; padding: 0 2px; line-height: 1; }
+        .mini-clock .mini-num { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; color: #5b8ab5; line-height: 1; letter-spacing: 1px; }
+        .mini-clock .mini-lbl { font-family: 'Montserrat', sans-serif; font-size: 8px; text-transform: uppercase; color: #111a24; font-weight: 600; display: block; }
+        .mini-clock .mini-sep { color: #c49a45; font-size: 16px; padding: 0 2px; line-height: 1; }
 
         /* ==========================================================================
            BOTONES INTERACTIVOS SOBREPUESTOS (GPS)
@@ -257,7 +266,7 @@
 
             /* Escala dinámica del Reloj Grande de Portada (Subido para no chocar abajo) */
             .countdown-wrapper { 
-                top: 62%; 
+                top: 42%; 
                 gap: 0.8vw;
             }
             .countdown-box {
@@ -274,9 +283,9 @@
                 border-radius: 3px;
                 gap: 0.3vw;
             }
-            .mini-clock .mini-num { font-size: 2.3vw; }
-            .mini-clock .mini-lbl { font-size: 0.9vw; }
-            .mini-clock .mini-sep { font-size: 1.8vw; padding: 0 0.1vw; }
+            .mini-clock .mini-num { font-size: 1.7vw; }
+            .mini-clock .mini-lbl { font-size: 0.65vw; }
+            .mini-clock .mini-sep { font-size: 1.3vw; padding: 0 0.1vw; }
 
             /* Escala dinámica para los Botones GPS de Ubicación */
             .btn-interactive { 
@@ -302,22 +311,14 @@
                 min-height: 38px;
             }
         }
-
-        /* Refuerzo extra para celulares en vertical rotados: como ahora 1vw
-           del viewport real es muy angosto, se reescala todo en base al ancho
-           visual de la tarjeta (100dvh) para que el texto no quede minúsculo */
-        @media (max-width: 820px) and (orientation: portrait) {
-            .countdown-num { font-size: 6vh; }
-            .countdown-lbl { font-size: 1.8vh; }
-            .countdown-box { min-width: 9vh; padding: 1.1vh 1.8vh; }
-            .mini-clock .mini-num { font-size: 3.6vh; }
-            .mini-clock .mini-lbl { font-size: 1.4vh; }
-            .mini-clock .mini-sep { font-size: 2.8vh; }
-            .btn-interactive { font-size: 2vh; padding: 1.2vh 2.6vh; gap: 0.9vh; }
-        }
     </style>
 </head>
 <body>
+
+<div class="rotate-message">
+    <i class="fa-solid fa-mobile-screen-button"></i>
+    <p>Por favor gira tu celular a modo horizontal para ver la invitación 💍</p>
+</div>
 
 <div class="slides-wrapper" id="slidesWrapper">
     <div class="slides-track" id="slidesTrack">
@@ -523,28 +524,14 @@
         });
 
         let touchStartX = 0;
-        let touchStartY = 0;
-        const isRotatedPortrait = () => window.matchMedia('(max-width: 820px) and (orientation: portrait)').matches;
-
         wrapper.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
         }, { passive: true });
         wrapper.addEventListener('touchend', function(e) {
-            const endX = e.changedTouches[0].screenX;
-            const endY = e.changedTouches[0].screenY;
-
-            if (isRotatedPortrait()) {
-                // La tarjeta está rotada 90°: el gesto físico es vertical (arriba = siguiente)
-                const diff = touchStartY - endY;
-                if (Math.abs(diff) > 40) {
-                    if (diff > 0) next(); else prev();
-                }
-            } else {
-                const diff = touchStartX - endX;
-                if (Math.abs(diff) > 40) {
-                    if (diff > 0) next(); else prev();
-                }
+            const diff = touchStartX - e.changedTouches[0].screenX;
+            if (Math.abs(diff) > 40) {
+                if (diff > 0) next();
+                else prev();
             }
         }, { passive: true });
 
