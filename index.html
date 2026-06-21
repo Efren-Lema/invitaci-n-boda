@@ -48,14 +48,6 @@
             }
         }
 
-        /* Celulares en VERTICAL: el diseño es horizontal (1361x768).
-           En vez de rotar la tarjeta, se oculta el contenido y se pide
-           al usuario que gire el celular a horizontal. */
-        @media (max-width: 820px) and (orientation: portrait) {
-            .slides-wrapper { display: none; }
-            .rotate-message { display: flex; }
-        }
-
         .rotate-message {
             display: none;
             flex-direction: column;
@@ -72,6 +64,14 @@
         @keyframes rotateHint {
             0%, 100% { transform: rotate(0deg); }
             50% { transform: rotate(90deg); }
+        }
+
+        /* Celulares en VERTICAL: el diseño es horizontal (1361x768).
+           En vez de rotar la tarjeta, se oculta el contenido y se pide
+           al usuario que gire el celular a horizontal. */
+        @media (max-width: 820px) and (orientation: portrait) {
+            .slides-wrapper { display: none; }
+            .rotate-message { display: flex; }
         }
 
         .slides-track {
@@ -264,9 +264,9 @@
         @media (max-width: 1361px), (max-width: 820px) and (orientation: portrait) {
             .nav-arrows { display: none; }
 
-            /* Escala dinámica del Reloj Grande de Portada (Subido para no chocar abajo) */
+            /* Reloj Grande de Portada movido más abajo para no chocar con los nombres */
             .countdown-wrapper { 
-                top: 42%; 
+                top: 63%; 
                 gap: 0.8vw;
             }
             .countdown-box {
@@ -317,7 +317,7 @@
 
 <div class="rotate-message">
     <i class="fa-solid fa-mobile-screen-button"></i>
-    <p>Por favor gira tu celular a modo horizontal para ver la invitación 💍</p>
+    <p>Bienvenidos, por favor gire la pantalla 💍</p>
 </div>
 
 <div class="slides-wrapper" id="slidesWrapper">
